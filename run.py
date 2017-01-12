@@ -17,7 +17,7 @@ app = Flask(__name__)
 def home():
     return jsonify('Hello')
 
-@app.route('/<search_query>')
+@app.route('/summary/<search_query>')
 def getSummary(search_query):
     try:
         topic_summary = wikipedia.page(search_query).summary
