@@ -146,7 +146,7 @@ def getPatents(search_query):
     patent_links = []
     for patent in patents:
         google_link = ('%s%s' % (google_patent_base, patent['patent_number']))
-        patent_links.append(google_link)
+        patent_links.append({'link': google_link, 'title': patent['patent_title']})
 
     return jsonify({'patents': patent_links})
 
