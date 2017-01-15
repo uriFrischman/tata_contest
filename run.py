@@ -137,6 +137,20 @@ def getReference(search_query):
     return jsonify({'reference': reference_links})
 
 
+
+@app.route('/patents/<search_query>')
+def getPatents(search_query):
+    patents = requests.get('http://www.patentsview.org/api/patents/query?q={%22_text_all%22:{%22patent_title%22:"' + search_query + '"}}')
+    patents = patents.json()['patents']
+    google_patent_base = 'http://www.google.ca/patents/US'
+    patent_links = []
+    for patent in patents:
+        google_link = ('%s%s' % (google_patent_base, patent['patent_number']))
+        patent_links.append(google_link)
+
+    return jsonify({'patents': patent_links})
+
+
 # print('TOPIC SUMARRY ---------------------------------')
 # print(topic_summary)
 # print('YOUTUBE ---------------------------------')
@@ -151,6 +165,9 @@ def getReference(search_query):
 # print(google_top_20)
 # print('REFERENCE ---------------------------------')
 # print(reference_links)
+
+
+
 
 
 if __name__ == '__main__':
