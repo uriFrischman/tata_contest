@@ -137,7 +137,7 @@ def getReference(search_query):
     return jsonify({'reference': reference_links})
 
 
-
+#Patents
 @app.route('/patents/<search_query>')
 def getPatents(search_query):
     patents = requests.get('http://www.patentsview.org/api/patents/query?q={%22_text_all%22:{%22patent_title%22:"' + search_query + '"}}')
@@ -150,6 +150,21 @@ def getPatents(search_query):
 
     return jsonify({'patents': patent_links})
 
+
+#Legal Cases
+@app.route('/cases/<search_query>')
+def getLegalCases(search_query):
+    cases = requests.get('https://www.courtlistener.com/api/rest/v3/search/?format=json&q=casename%3A' + search_query + '&type=o')
+    cases = cases.json()['results']
+    court_listener_home = 'https://www.courtlistener.com'
+    case_links = []
+
+    for case in cases:
+        object = {'court': case['court'], 'case_name': case['caseName'],
+                  'url': "%s%s" % (court_listener_home, case['absolute_url'])}
+        case_links.append(object)
+
+    return jsonify({'cases': case_links})
 
 # print('TOPIC SUMARRY ---------------------------------')
 # print(topic_summary)
