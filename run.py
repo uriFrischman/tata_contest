@@ -48,7 +48,7 @@ def getYoutube(search_query):
             total_link = "%s%s" % (youtube_home_link, link.get('href'))
             youtube_links.append(total_link)
 
-    return jsonify({'youtube links': youtube_links})
+    return jsonify({'youtube': youtube_links})
 
 
 
@@ -82,7 +82,7 @@ def getNYT(search_query):
     for article in nyt_response:
         nyt_articles.append(article['web_url'])
 
-    return jsonify({'new york times': nyt_articles})
+    return jsonify({'new_york_times': nyt_articles})
 
 
 
