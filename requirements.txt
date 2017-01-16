@@ -1,11 +1,15 @@
 beautifulsoup4==4.5.3
 click==6.7
 Flask==0.12
+Flask-Cors==3.0.2
 google==1.9.3
+googleimagesearch==1.0.2
+gooimage==0.0.3
 itsdangerous==0.24
 Jinja2==2.9.4
 MarkupSafe==0.23
 nytimes==1.0.1
-requests==2.12.4
+requests==2.4.3
+six==1.10.0
 Werkzeug==0.11.15
 wikipedia==1.4.0
