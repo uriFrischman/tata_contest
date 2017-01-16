@@ -6,12 +6,15 @@ import google
 import sys
 import os
 from flask import Flask, jsonify, request
+from flask.ext.cors import CORS, cross_origin
 
 
 # full_argument = " ".join(sys.argv[1:])
 # search_query = full_argument
 
 app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route('/')
 def home():
@@ -31,6 +34,7 @@ def getSummary(search_query):
 # YOUTUBE SEARCHES
 
 @app.route('/youtube/<search_query>')
+@cross_origin()
 def getYoutube(search_query):
     r = requests.get('https://www.youtube.com/results?search_query=' + search_query)
 
@@ -55,6 +59,7 @@ def getYoutube(search_query):
 #WIKIPEDIA SEARCHES
 
 @app.route('/wikipedia/<search_query>')
+@cross_origin()
 def getWikipedia(search_query):
     try:
         wikipedia_page = wikipedia.page(search_query)
@@ -72,6 +77,7 @@ def getWikipedia(search_query):
 
 # NEW YORK TIMES
 @app.route('/new_york_times/<search_query>')
+@cross_origin()
 def getNYT(search_query):
     nyt_articles = []
 
@@ -88,6 +94,7 @@ def getNYT(search_query):
 
 #Britanica Search Results
 @app.route('/britannica/<search_query>')
+@cross_origin()
 def getBritannica(search_query):
     britannica_home_url = 'https://www.britannica.com'
 
@@ -106,6 +113,7 @@ def getBritannica(search_query):
 
 #GOOGLE
 @app.route('/google/<search_query>')
+@cross_origin()
 def getGoogle(search_query):
     google_top_20 = []
     google_results = google.search(search_query, num=20, stop=1)
@@ -119,6 +127,7 @@ def getGoogle(search_query):
 #Reference.com
 
 @app.route('/reference/<search_query>')
+@cross_origin()
 def getReference(search_query):
 
     reference_home_url = 'https://www.reference.com'
@@ -139,6 +148,7 @@ def getReference(search_query):
 
 #Patents
 @app.route('/patents/<search_query>')
+@cross_origin()
 def getPatents(search_query):
     patents = requests.get('http://www.patentsview.org/api/patents/query?q={%22_text_all%22:{%22patent_title%22:"' + search_query + '"}}')
     patents = patents.json()['patents']
@@ -153,6 +163,7 @@ def getPatents(search_query):
 
 #Legal Cases
 @app.route('/cases/<search_query>')
+@cross_origin()
 def getLegalCases(search_query):
     cases = requests.get('https://www.courtlistener.com/api/rest/v3/search/?format=json&q=casename%3A' + search_query + '&type=o')
     cases = cases.json()['results']
